@@ -12,7 +12,7 @@ module.exports = (sequelize, DataTypes) => {
     },
     email: {
       type: DataTypes.STRING,
-      unique: {arg:true, msg:'User already registered'},
+      unique: { arg: true, msg: 'User already registered' },
       allowNull: false,
     },
     password: {
@@ -26,8 +26,12 @@ module.exports = (sequelize, DataTypes) => {
   }, {
     timestamps: false,
     tableName: 'users',
-    underscored: true
+    underscored: true,
   });
 
+  UserModel.associate = (models) => {
+    UserModel.hasMany(models.BlogPost, { foreignKey: 'userId' });
+  };
+
   return UserModel;
-} 
+};
