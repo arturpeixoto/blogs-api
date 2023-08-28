@@ -12,6 +12,7 @@ const login = async (req, res) => {
     }, process.env.JWT_SECRET, {
       algorithm: 'HS256',
     });
+    console.log(token);
     return res.status(mapStatusHTTP(status)).json({ token });
   }
   return res.status(mapStatusHTTP(status)).json(data);

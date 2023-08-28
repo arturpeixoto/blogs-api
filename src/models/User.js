@@ -12,7 +12,7 @@ module.exports = (sequelize, DataTypes) => {
     },
     email: {
       type: DataTypes.STRING,
-      unique: true,
+      unique: {arg:true, msg:'User already registered'},
       allowNull: false,
     },
     password: {
