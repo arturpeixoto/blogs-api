@@ -11,6 +11,12 @@ route.get(
   usersController.getAll,
 );
 
+route.get(
+  '/:id',
+  authMiddleware,
+  usersController.getById,
+);
+
 route.post(
   '/',
   validateFieldsExistence,

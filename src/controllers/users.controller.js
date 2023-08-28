@@ -7,6 +7,12 @@ const getAll = async (req, res) => {
   res.status(mapStatusHTTP(status)).json(data);
 };
 
+const getById = async (req, res) => {
+  const { id } = req.params;
+  const { status, data } = await usersService.getById(id);
+  res.status(mapStatusHTTP(status)).json(data);
+};
+
 const create = async (req, res) => {
   try {
     const user = req.body;
@@ -29,4 +35,5 @@ const create = async (req, res) => {
 module.exports = {
   create,
   getAll,
+  getById,
 };
