@@ -2,13 +2,16 @@ const { Category } = require('../models');
 
 const alreadyRegisteredString = 'Category already registered';
 
+const getAll = async () => {
+  const data = await Category.findAll({ order: [['id', 'ASC']] });
+  return { status: 'SUCCESSFUL', data };
+};
+
 const create = async (name) => {
   try {
     const createdCategory = await Category.create({ name });
-    console.log(createdCategory);
     return { status: 'CREATED', data: createdCategory.dataValues };
   } catch (error) {
-    console.log(error);
       return { 
         status: 'CONFLICT', 
         data: { message: alreadyRegisteredString }, 
@@ -18,4 +21,5 @@ const create = async (name) => {
 
 module.exports = {
   create,
+  getAll,
 };

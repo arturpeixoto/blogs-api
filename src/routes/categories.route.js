@@ -5,6 +5,12 @@ const authMiddleware = require('../middlewares/auth');
 
 const route = express.Router();
 
+route.get(
+  '/',
+  authMiddleware,
+  categoriesController.getAll,
+);
+
 route.post(
   '/',
   authMiddleware,
