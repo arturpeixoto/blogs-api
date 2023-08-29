@@ -2,9 +2,13 @@ const { Op } = require('sequelize');
 const { Category, BlogPost, PostCategory, User, sequelize } = require('../models');
 
 const getAll = async () => {
-  const posts = BlogPost.findAll({
-    include: { model: User, as: 'users', through: { attributes: ['id'] } },
+  const posts = await BlogPost.findAll({
+    include: [
+      { model: User, as: 'user', attributes: { exclude: ['password'] } },
+      { model: Category, as: 'categories', through: { attributes: [] } },
+    ],
   });
+  
   return { status: 'SUCCESSFUL', data: posts };
 };
 

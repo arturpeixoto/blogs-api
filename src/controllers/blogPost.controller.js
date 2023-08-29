@@ -2,6 +2,11 @@ const jwt = require('jsonwebtoken');
 const { blogPostsService } = require('../services');
 const mapStatusHTTP = require('../utils/mapStatusHTTP');
 
+const getAll = async (req, res) => {
+  const { status, data } = await blogPostsService.getAll();
+  res.status(mapStatusHTTP(status)).json(data);
+};
+
 const create = async (req, res) => {
   const { title, content, categoryIds } = req.body;
   const { authorization } = req.headers;
@@ -14,4 +19,5 @@ const create = async (req, res) => {
 
 module.exports = {
   create,
+  getAll,
 };

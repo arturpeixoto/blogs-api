@@ -5,6 +5,12 @@ const { validateFieldsExistencePosts } = require('../middlewares/checkRequiredPo
 
 const route = express.Router();
 
+route.get(
+  '/',
+  authMiddleware,
+  blogPostsController.getAll,
+);
+
 route.post(
   '/',
   authMiddleware,
