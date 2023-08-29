@@ -1,6 +1,6 @@
 const { Op } = require('sequelize');
 const { Category, BlogPost, PostCategory, User, sequelize } = require('../models');
-
+// Olá
 const getAll = async () => {
   const posts = await BlogPost.findAll({
     include: [
