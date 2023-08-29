@@ -32,8 +32,15 @@ const create = async (req, res) => {
   }
 };
 
+const eliminate = async (req, res) => {
+  const { user } = req.body;
+  const { status } = await usersService.eliminate(user.id);
+  res.status(mapStatusHTTP(status)).end();
+};
+
 module.exports = {
   create,
   getAll,
   getById,
+  eliminate,
 };

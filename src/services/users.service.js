@@ -36,11 +36,16 @@ const create = async (user) => {
     const createdUser = await User.create(user);
     return { status: 'CREATED', data: createdUser.dataValues };
   } catch (error) {
-      return { 
-        status: 'CONFLICT', 
-        data: { message: alreadyRegisteredString }, 
-      }; 
+    return { 
+      status: 'CONFLICT', 
+      data: { message: alreadyRegisteredString }, 
+    }; 
   }
+};
+
+const eliminate = async (userId) => {
+  await User.destroy({ where: { id: userId } });
+  return { status: 'NO_CONTENT' };
 };
 
 module.exports = {
@@ -48,4 +53,5 @@ module.exports = {
   getByEmail,
   getAll,
   getById,
+  eliminate,
 };

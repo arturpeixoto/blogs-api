@@ -36,11 +36,8 @@ const update = async (req, res) => {
 
 const eliminate = async (req, res) => {
   const { id } = req.params;
-  const { authorization } = req.headers;
-  const token = authorization.split(' ')[1];
-  const decoded = jwt.verify(token, process.env.JWT_SECRET);
-  const userId = decoded.id;
-  const { status, data } = await blogPostsService.eliminate(id, userId);
+  const { user } = req.body;
+  const { status, data } = await blogPostsService.eliminate(id, user.id);
   if (data) return res.status(mapStatusHTTP(status)).json(data);
   return res.status(mapStatusHTTP(status)).end();
 };

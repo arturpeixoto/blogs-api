@@ -5,6 +5,12 @@ const authMiddleware = require('../middlewares/auth');
 
 const route = express.Router();
 
+route.delete(
+  '/me',
+  authMiddleware,
+  usersController.eliminate,
+);
+
 route.get(
   '/',
   authMiddleware,

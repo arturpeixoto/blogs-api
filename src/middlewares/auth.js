@@ -5,10 +5,10 @@ const authMiddleware = (req, res, next) => {
   try {
     if (!authorization) return res.status(401).json({ message: 'Token not found' });
     const token = authorization.split(' ')[1];
-    jwt.verify(token, process.env.JWT_SECRET);
+    const verification = jwt.verify(token, process.env.JWT_SECRET);
+    req.body.user = verification;
     next();
   } catch (err) {
-    console.error(err);
     res.status(401).json({ message: 'Expired or invalid token' });
   }
 };

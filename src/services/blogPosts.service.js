@@ -87,7 +87,6 @@ const eliminate = async (postId, userId) => {
     return { status: 'NOT_FOUND', data: { message: 'Post does not exist' } };
   }
   const isUserAllowed = await checkUser(userId, postId);
-  console.log(isUserAllowed);
   if (!isUserAllowed) {
     return { status: 'UNAUTHORIZED', data: { message: 'Unauthorized user' } };
   }
