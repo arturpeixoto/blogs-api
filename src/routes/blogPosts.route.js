@@ -21,6 +21,12 @@ route.put(
   blogPostsController.update,
 );
 
+route.delete(
+  '/:id',
+  authMiddleware,
+  blogPostsController.eliminate,
+);
+
 route.get(
   '/',
   authMiddleware,

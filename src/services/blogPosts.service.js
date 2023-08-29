@@ -61,16 +61,18 @@ const checkUser = async (userId, postId) => {
   return retrievedPost.userId === userId;
 };
 
+const checkPost = async (postId) => BlogPost.findOne({ where: { id: postId } });
+
 const update = async (postId, title, content, userId) => {
+  const post = await checkPost(postId);
+  if (!post) {
+    return { status: 'NOT_FOUND', data: { message: 'Post does not exist' } };
+  }
   const isUserAllowed = await checkUser(userId, postId);
   if (!isUserAllowed) {
     return { status: 'UNAUTHORIZED', data: { message: 'Unauthorized user' } };
   }
   
-  const post = await BlogPost.findOne({ where: { id: postId } });
-  if (!post) {
-    return { status: 'NOT_FOUND', data: { message: 'Post not found' } };
-  }
   post.title = title;
   post.content = content;
   post.updated = Date.now();
@@ -79,9 +81,24 @@ const update = async (postId, title, content, userId) => {
   return getById(postId);
 };
 
+const eliminate = async (postId, userId) => {
+  const post = await checkPost(postId);
+  if (!post) {
+    return { status: 'NOT_FOUND', data: { message: 'Post does not exist' } };
+  }
+  const isUserAllowed = await checkUser(userId, postId);
+  console.log(isUserAllowed);
+  if (!isUserAllowed) {
+    return { status: 'UNAUTHORIZED', data: { message: 'Unauthorized user' } };
+  }
+  await BlogPost.destroy({ where: { id: postId } });
+  return { status: 'NO_CONTENT' };
+};
+
 module.exports = {
   create,
   getAll,
   getById,
   update,
+  eliminate,
 };
