@@ -12,6 +12,18 @@ const getAll = async () => {
   return { status: 'SUCCESSFUL', data: posts };
 };
 
+const getById = async (id) => {
+  const post = await BlogPost.findOne({
+    where: { id },
+    include: [
+      { model: User, as: 'user', attributes: { exclude: ['password'] } },
+      { model: Category, as: 'categories', through: { attributes: [] } },
+    ],
+  });
+  if (!post) return { status: 'NOT_FOUND', data: { message: 'Post does not exist' } };
+  return { status: 'SUCCESSFUL', data: post };
+};
+
 const createTransaction = async (title, content, categoryIds, userId) => {
   const result = sequelize.transaction(async (transaction) => {
     const published = Date.now();
@@ -47,4 +59,5 @@ const create = async (title, content, categoryIds, userId) => {
 module.exports = {
   create,
   getAll,
+  getById,
 };

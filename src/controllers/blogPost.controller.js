@@ -7,6 +7,12 @@ const getAll = async (req, res) => {
   res.status(mapStatusHTTP(status)).json(data);
 };
 
+const getById = async (req, res) => {
+  const { id } = req.params;
+  const { status, data } = await blogPostsService.getById(id);
+  res.status(mapStatusHTTP(status)).json(data);
+};
+
 const create = async (req, res) => {
   const { title, content, categoryIds } = req.body;
   const { authorization } = req.headers;
@@ -20,4 +26,5 @@ const create = async (req, res) => {
 module.exports = {
   create,
   getAll,
+  getById,
 };
