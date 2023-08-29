@@ -9,6 +9,12 @@ const {
 const route = express.Router();
 
 route.get(
+  '/search',
+  authMiddleware,
+  blogPostsController.getBySearchTerm,
+);
+
+route.get(
   '/:id',
   authMiddleware,
   blogPostsController.getById,

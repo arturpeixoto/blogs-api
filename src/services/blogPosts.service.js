@@ -94,10 +94,27 @@ const eliminate = async (postId, userId) => {
   return { status: 'NO_CONTENT' };
 };
 
+const getBySearchTerm = async (searchQuery) => {
+  const posts = await BlogPost.findAll({
+    where: {
+      [Op.or]: [
+        { title: { [Op.like]: `%${searchQuery}%` } },
+        { content: { [Op.like]: `%${searchQuery}%` } },
+      ],
+    },
+    include: [
+      { model: User, as: 'user', attributes: { exclude: ['password'] } },
+      { model: Category, as: 'categories', through: { attributes: [] } },
+    ],
+  });
+  return { status: 'SUCCESSFUL', data: posts };
+};
+
 module.exports = {
   create,
   getAll,
   getById,
   update,
   eliminate,
+  getBySearchTerm,
 };

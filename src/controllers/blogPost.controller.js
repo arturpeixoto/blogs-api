@@ -42,10 +42,17 @@ const eliminate = async (req, res) => {
   return res.status(mapStatusHTTP(status)).end();
 };
 
+const getBySearchTerm = async (req, res) => {
+  const searchQuery = req.query.q;
+  const { status, data } = await blogPostsService.getBySearchTerm(searchQuery);
+  res.status(mapStatusHTTP(status)).json(data);
+};
+
 module.exports = {
   create,
   getAll,
   getById,
   update,
   eliminate,
+  getBySearchTerm,
 };
