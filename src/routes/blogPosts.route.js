@@ -1,7 +1,10 @@
 const express = require('express');
 const { blogPostsController } = require('../controllers');
 const authMiddleware = require('../middlewares/auth');
-const { validateFieldsExistencePosts } = require('../middlewares/checkRequiredPostFields');
+const { 
+  validateFieldsExistenceCreatePosts,
+  validateFieldsExistenceUpdatePosts,
+} = require('../middlewares/checkRequiredPostFields');
 
 const route = express.Router();
 
@@ -9,6 +12,13 @@ route.get(
   '/:id',
   authMiddleware,
   blogPostsController.getById,
+);
+
+route.put(
+  '/:id',
+  authMiddleware,
+  validateFieldsExistenceUpdatePosts,
+  blogPostsController.update,
 );
 
 route.get(
@@ -20,7 +30,7 @@ route.get(
 route.post(
   '/',
   authMiddleware,
-  validateFieldsExistencePosts,
+  validateFieldsExistenceCreatePosts,
   blogPostsController.create,
 );
 

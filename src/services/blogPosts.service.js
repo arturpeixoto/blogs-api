@@ -56,8 +56,32 @@ const create = async (title, content, categoryIds, userId) => {
   }
 };
 
+const checkUser = async (userId, postId) => {
+  const retrievedPost = await BlogPost.findOne({ where: { id: postId } });
+  return retrievedPost.userId === userId;
+};
+
+const update = async (postId, title, content, userId) => {
+  const isUserAllowed = await checkUser(userId, postId);
+  if (!isUserAllowed) {
+    return { status: 'UNAUTHORIZED', data: { message: 'Unauthorized user' } };
+  }
+  
+  const post = await BlogPost.findOne({ where: { id: postId } });
+  if (!post) {
+    return { status: 'NOT_FOUND', data: { message: 'Post not found' } };
+  }
+  post.title = title;
+  post.content = content;
+  post.updated = Date.now();
+  await post.save();
+
+  return getById(postId);
+};
+
 module.exports = {
   create,
   getAll,
   getById,
+  update,
 };

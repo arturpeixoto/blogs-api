@@ -23,8 +23,20 @@ const create = async (req, res) => {
   res.status(mapStatusHTTP(status)).json(data);
 };
 
+const update = async (req, res) => {
+  const { title, content } = req.body;
+  const { id } = req.params;
+  const { authorization } = req.headers;
+  const token = authorization.split(' ')[1];
+  const decoded = jwt.verify(token, process.env.JWT_SECRET);
+  const userId = decoded.id;
+  const { status, data } = await blogPostsService.update(id, title, content, userId);
+  res.status(mapStatusHTTP(status)).json(data);
+};
+
 module.exports = {
   create,
   getAll,
   getById,
+  update,
 };

@@ -1,6 +1,6 @@
 const checkRequiredFields = require('../utils/checkRequiredFields');
 
-const validateFieldsExistencePosts = (req, res, next) => {
+const validateFieldsExistenceCreatePosts = (req, res, next) => {
   const { body } = req;
   const requiredFields = ['title', 'content', 'categoryIds'];
   const blogPostError = checkRequiredFields(body, requiredFields);
@@ -13,6 +13,20 @@ const validateFieldsExistencePosts = (req, res, next) => {
   next();
 };
 
+const validateFieldsExistenceUpdatePosts = (req, res, next) => {
+  const { body } = req;
+  const requiredFields = ['title', 'content'];
+  const blogPostError = checkRequiredFields(body, requiredFields);
+  if (blogPostError) return res.status(400).json({ message: blogPostError });
+  const { content, title } = body;
+  if (!content || !title) {
+    return res.status(400).json({ message: 'Some required fields are missing' });
+  }
+
+  next();
+};
+
 module.exports = { 
-  validateFieldsExistencePosts, 
+  validateFieldsExistenceCreatePosts, 
+  validateFieldsExistenceUpdatePosts,
 };
