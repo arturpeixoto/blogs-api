@@ -2,14 +2,14 @@
 
 ## Descrição do Projeto
 
-Neste projeto, desenvolvi uma API e um banco de dados para a produção de conteúdo em um blog. A aplicação será construída em Node.js, utilizando o pacote Sequelize para implementar operações CRUD de posts.
+Este projeto visa criar uma API e um banco de dados para a produção de conteúdo em um blog. A aplicação será desenvolvida em Node.js, utilizando o pacote Sequelize para realizar operações CRUD de posts.
 
 ### Funcionalidades Principais
 
-- Desenvolvimento de endpoints conectados ao banco de dados seguindo os princípios do REST.
-- Implementação de CRUD de posts, considerando a necessidade de usuário e login para realizar postagens.
-- Estabelecimento da relação entre usuário e post.
-- Utilização de categorias para classificar os posts, trabalhando nas relações de posts para categorias e de categorias para posts.
+- Desenvolvimento de endpoints conectados ao banco de dados, seguindo os princípios do REST para uma arquitetura robusta e escalável.
+- Implementação de CRUD de posts, com a necessidade de autenticação de usuário para realizar postagens, garantindo segurança e controle de acesso.
+- Estabelecimento de relações entre usuários e posts, permitindo que cada post seja atribuído a um autor específico.
+- Utilização de categorias para classificar os posts, com a configuração de relações entre posts e categorias, além de categorias e posts, para uma organização eficiente do conteúdo do blog.
 
 ## Guia de Instalação e Execução
 
