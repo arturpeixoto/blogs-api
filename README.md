@@ -2,7 +2,7 @@
 
 ## Descrição do Projeto
 
-Este projeto visa criar uma API e um banco de dados para a produção de conteúdo em um blog. A aplicação será desenvolvida em Node.js, utilizando o pacote Sequelize para realizar operações CRUD de posts.
+Este projeto visa criar uma API e um banco de dados para a produção de conteúdo em um blog. A aplicação será desenvolvida em Node.js, utilizando o pacote Sequelize para realizar operações CRUD (Create, Read, Update e Delete) de posts.
 
 ### Funcionalidades Principais
 
